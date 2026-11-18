@@ -1,4 +1,4 @@
-"""Python 3.11+; pandas. python analyze.py --input ../2кейс/students.csv"""
+
 import argparse,json,hashlib
 from pathlib import Path
 from collections import Counter,defaultdict

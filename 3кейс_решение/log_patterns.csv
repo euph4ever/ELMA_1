@@ -1,0 +1,8 @@
+Pattern,UniqueTimestampedRecords,Users
+traffic_limit_disconnect,1819,303
+server_config_http400,4122,614
+push_services_unavailable,263,18
+background_fcm_assumption,5080,417
+auth401,173261,717
+request_retry_success,169729,715
+network_reset,21364,486

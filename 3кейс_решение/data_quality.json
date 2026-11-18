@@ -1,0 +1,22 @@
+{
+  "users": 1844880,
+  "orders": 136006,
+  "subscriptions": 69968,
+  "transactions": 124863,
+  "orders_user_not_found": 0,
+  "subscriptions_order_not_found": 0,
+  "subscriptions_duplicate_order_rows": 28,
+  "subscription_user_mismatch": 29,
+  "transactions_order_not_found": 0,
+  "subscriptions_by_order_status": {
+    "paid": 69967,
+    "pending": 1
+  },
+  "paid_zero_amount_orders": 255,
+  "paid_positive_without_completed_transaction": 1,
+  "subscription_creation_minus_order_update_median_sec": 0.001071,
+  "negative_registration_purchase_intervals": 4412,
+  "first_order": "2025-04-17 12:23:38.983054",
+  "last_order": "2026-09-29 11:42:30.500979",
+  "cutoff_for_mature_cohorts": "2026-09-29 00:00:00"
+}

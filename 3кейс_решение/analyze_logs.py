@@ -1,6 +1,6 @@
-"""Read nested incident ZIPs; export only derived, de-identified evidence.
-An incomplete download can be inspected with --partial, but final reports use a complete ZIP.
-"""
+
+
+
 import argparse,json,pathlib,struct,zlib,zipfile,io,hashlib,re,collections,datetime
 
 PATTERNS={
@@ -62,7 +62,7 @@ def main():
     failures.append(item['name'])
     if not args.partial:print('UNREADABLE',key(item['name']),type(e).__name__,flush=True)
    if (j+1)%50==0:print('ARCHIVES',j+1,'/',len(items),'read',len(records),flush=True)
- # Deduplicate exact files and repeated timestamped events across incident exports.
+
  owners=collections.defaultdict(set)
  for rec in records:
   for file in rec['files']:owners[file['sha256']].add(rec['user_id'])

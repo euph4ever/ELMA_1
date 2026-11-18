@@ -1,4 +1,4 @@
-"""Product hypotheses: reproducible aggregates. Python 3.11+, pandas, numpy."""
+
 import argparse,json,hashlib,re
 from pathlib import Path
 import pandas as pd
@@ -32,9 +32,9 @@ def main():
  buyers['RegistrationDays']=(buyers.FirstPurchase-buyers.created_at).dt.total_seconds()/86400
  buyers['TrialDays']=(buyers.FirstPurchase-buyers.FirstTrial).dt.total_seconds()/86400
  cohort=firsttrial.to_frame('FirstTrial').join(firstbuy.rename('FirstPurchase'))
- # Previous purchasers are not eligible for a first-purchase conversion cohort.
+
  cohort=cohort[cohort.FirstPurchase.isna()|(cohort.FirstPurchase>=cohort.FirstTrial)]
- cutoff=pd.Timestamp('2026-09-29T00:00:00') # Last complete calendar day in the supplied snapshot.
+ cutoff=pd.Timestamp('2026-09-29T00:00:00')
  conversion=[]
  for days in [7,14,30]:
   c=cohort[cohort.FirstTrial<=cutoff-pd.Timedelta(days=days)]
@@ -58,7 +58,7 @@ def main():
   adjusted=c.RegistrationDays+3/24;adjusted=adjusted[adjusted>=0]
   buyerstats.append(dict(Group=name,Buyers=len(c),ValidRawIntervals=len(ages),RawMedianDays=ages.median(),ValidAdjustedIntervals=len(adjusted),AdjustedP25Days=adjusted.quantile(.25),AdjustedMedianDays=adjusted.median(),AdjustedP75Days=adjusted.quantile(.75),AdjustedP90Days=adjusted.quantile(.9)))
  pd.DataFrame(buyerstats).to_csv(out/'purchase_timing.csv',index=False)
- # Per-user next successful payment after a failed order; bounded observation window.
+
  paidtimes={uid:g.updated_at.sort_values().to_numpy(dtype='datetime64[ns]') for uid,g in valid.groupby('user_id')}
  failed=o[o.status=='failed'].copy();failed['Recovered24h']=False;failed['RecoveryHours']=np.nan
  failed=failed[failed.updated_at<=cutoff-pd.Timedelta(days=1)].copy()
@@ -81,7 +81,7 @@ def main():
  summary['negative_registration_below_minus3h']=int((buyers.RegistrationDays < -3/24).sum())
  marker=firsttrial.to_frame('Trial').join(profiles.trial_used_at)
  summary['trial_marker_minus_paid_median_seconds']=float((marker.trial_used_at-marker.Trial).dt.total_seconds().median())
- # Device identities are used locally; only aggregate counts leave this script.
+
  if (r/'devices.csv').exists():
   dev=load(r,'devices',['id','user_id','device_identifier','device_name','client_type','os','brand'])
   raw_count=len(dev);dev.device_identifier=dev.device_identifier.astype('string').str.strip().str.lower()
